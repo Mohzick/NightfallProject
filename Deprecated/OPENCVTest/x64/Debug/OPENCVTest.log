@@ -1,0 +1,4 @@
+﻿  stdafx.cpp
+  create_marker.cpp
+create_marker.obj : error LNK2019: unresolved external symbol _CrtDbgReportW referenced in function "void * __cdecl std::_Allocate_manually_vector_aligned<struct std::_Default_allocate_traits>(unsigned __int64)" (??$_Allocate_manually_vector_aligned@U_Default_allocate_traits@std@@@std@@YAPEAX_K@Z)
+C:\Users\minh-ng\source\repos\OPENCVTest\x64\Debug\OPENCVTest.exe : fatal error LNK1120: 1 unresolved externals
