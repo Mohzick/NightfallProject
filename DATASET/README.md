@@ -4,7 +4,7 @@ This is a dataset of night and day pictures of the same location captured for Pr
 
 The night and day pairs are in the same folder; should you want to separate them, just Ctrl+F Night or Day and cut them into separate folders.
 
-##1. Content
+## 1. Content
 
 DN1 is the first attempt of capture (see section 2 for capture method)
 
@@ -20,7 +20,7 @@ DN4_FullDark: as its name implies, IT contains the pictures that received no or 
 Further dataset types will come, depending on the needs of the project.
 
 
-##2. Methodology
+## 2. Methodology
 
 For image capture, I used a Ricoh Theat S camera producing 360 degrees, 4K pictures. The Ricoh was mounted on a Roomba iRobot driven by a tethered laptop. 
 The Roomba was guided by masking tape on the lab floor, using Python/OpenCV for its line recognition algorithm.
