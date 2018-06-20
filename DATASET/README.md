@@ -9,7 +9,7 @@ The night and day pairs are in the same folder; should you want to separate them
 DN1 is the first attempt of capture (see section 2 for capture method)
 
 DN2 is the highest quality set of pictures and also the most numerous. It was captured with the same method as DN1.
-Hozever, the robot's path was planned more carefully
+However, the robot's path was planned more carefully and all lit screens were shut down to ensure darkness.
 
 DN3 was captured using another method: the camera was tethered to the computer and 4K screenshots were made using MPC-HC.
 It produced rather a low-quality result (this doesn't really matter since everything was resized afterwards).
