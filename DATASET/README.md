@@ -2,7 +2,7 @@
 
 This is a dataset of night and day pictures of the same location captured for Project Nightfall.
 
-The night and day pairs are in different folders. A python script is also included in order to load the dataset into a Pytorch NN.
+The night and day pairs are in different folders. A python script is also included in order to combine a pair of images. Should you want to use them separately, please use the RAW folder.
 
 ## 1. Content
 
