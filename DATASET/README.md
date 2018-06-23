@@ -2,7 +2,7 @@
 
 This is a dataset of night and day pictures of the same location captured for Project Nightfall.
 
-The night and day pairs are in the same folder; should you want to separate them, just Ctrl+F Night or Day and cut them into separate folders.
+The night and day pairs are in different folders. A python script is also included in order to load the dataset into a Pytorch NN.
 
 ## 1. Content
 
@@ -22,7 +22,7 @@ Further dataset types will come, depending on the needs of the project.
 
 ## 2. Methodology
 
-For image capture, I used a Ricoh Theat S camera producing 360 degrees, 4K pictures. The Ricoh was mounted on a Roomba iRobot driven by a tethered laptop. 
+For image capture, I used a Ricoh Theta S camera producing 360 degrees, 4K pictures. The Ricoh was mounted on a Roomba iRobot driven by a tethered laptop. 
 The Roomba was guided by masking tape on the lab floor, using Python/OpenCV for its line recognition algorithm.
 
 The 360 pictures were then post-processed in Adobe Photoshop with various scripts, then renamed with the help of Advanced Renamer.
