@@ -2,7 +2,7 @@
 
 This is a dataset of night and day pictures of the same location captured for Project Nightfall.
 
-The night and day pairs are in different folders. A python script is also included in order to combine a pair of images. Should you want to use them separately, please use the RAW folder.
+The night and day pairs are combinated into a single image with a size of 700x350px. A python script is also included in order to combine a pair of images. Should you want to use them separately, please check the RAW folder.
 
 ## 1. Content
 
