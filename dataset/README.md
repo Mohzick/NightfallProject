@@ -27,6 +27,8 @@ The Roomba was guided by masking tape on the lab floor, using Python/OpenCV for 
 
 The 360 pictures were then post-processed in Adobe Photoshop with various scripts, then renamed with the help of Advanced Renamer.
 
-As the lab isn't able to be fully in the dark, the photos nearly all have illumination from outside. This should be close to realistic conditions. Furthermore, the webcam is not able to capture any image under a certain luminosity threshold. 
+As the lab isn't able to be fully in the dark, the photos nearly all have illumination from outside. This should be close to realistic conditions. Furthermore, the webcam is not able to capture any image under a certain luminosity threshold. Thus, the exterior illumination should be seen as an advantage of this dataset. 
+
+Some fully dark images are also randomly included. They are to be removed if they do not prove to be useful for the training. 
 
 Some further research may be needed to improve the process' automation.
