@@ -6,12 +6,12 @@ import torch.utils.data as data
 import torchvision.transforms as transforms
 import numpy as np
 
-size = 350 #size of the inout and ouput, it's a square
+size = 352 #size of the input and ouput, it's a square
 
 #function useful to process images
 
 def isImage(filename):
-    return any(filename.endswith(".jpg"))
+    return any(filename.endswith(extension) for extension in [".png", ".jpg", ".jpeg", ".JPG", ])
 
 def loadImage(filepath):
     img = Image.open(filepath).convert('RGB')
@@ -45,7 +45,7 @@ class createDataset(data.Dataset):
 
     #function allowing to load image
 
-    def __getimage__(self, index):
+    def __getitem__(self, index):
         input = loadImage(join(self.night_path, self.images_name[index]))
         input = self.transformation(input)
         target = loadImage(join(self.day_path, self.images_name[index]))
@@ -71,7 +71,6 @@ def getTestingDataset(folderpath):
     trainingFolder = join(folderpath, "testing")
 
     return createDataset(trainingFolder)
-
 
 
 
