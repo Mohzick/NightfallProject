@@ -142,10 +142,34 @@ def train(epoch):
 		saveImage(pipi.cpu(), string14)
 		saveImage(pipi2.cpu(), string22)	
 
+def test():
+	
+	for iteration, batch in enumerate(testing_data_loader, 1):
+
+		real_Night_cpu, real_Day_cpu = batch[0], batch[1]
+		real_Night.data.resize_(real_Night_cpu.size()).copy_(real_Night_cpu)
+		real_Day.data.resize_(real_Day_cpu.size()).copy_(real_Day_cpu)
+
+		fake_Day = gen(real_Night)
+
+		pipi = fake_Day.detach().data[0]
+		pipi2 = real_Night.detach().data[0]
+		string1 = "/home/mohzick/NightfallProject/realtest/day/test"
+		string12 = "%d" % iteration
+		string13 = ".jpg"
+		string14 = string1 + string12 + string13
+		string2 = "/home/mohzick/NightfallProject/realtest/night/test"
+		string22 = string2 + string12 + string13
+	
+		saveImage(pipi.cpu(), string14)
+		saveImage(pipi2.cpu(), string22)	
+
 
 
 for epoch in range(1, nbEpochs + 1):
 	train(epoch)
+	test()
+
 
 
 
