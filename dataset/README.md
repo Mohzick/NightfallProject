@@ -6,6 +6,8 @@ The night and day pairs are combinated into a single image with a size of 700x35
 
 ## 1. Content
 
+The folders are 
+
 DN1 is the first attempt of capture (see section 2 for capture method)
 
 DN2 is the highest quality set of pictures and also the most numerous. It was captured with the same method as DN1.
@@ -17,13 +19,14 @@ However, no exposure adustments have been made: this could be a problem for mach
 
 DN4_FullDark: as its name implies, IT contains the pictures that received no or insufficient illumination during night. We will see if those are exploitable.
 
+DN5_all is a combination of DN1 and DN2 which are relatively similar datasets. It yields pretty good results when feeded to the neural network. Other dataset of this kind will be made in the near future.
+
 Further dataset types will come, depending on the needs of the project.
 
 
 ## 2. Methodology
 
-For image capture, I used a Ricoh Theta S camera producing 360 degrees, 4K pictures. The Ricoh was mounted on a Roomba iRobot driven by a tethered laptop. 
-The Roomba was guided by masking tape on the lab floor, using Python/OpenCV for its line recognition algorithm.
+For image capture, I used a Ricoh Theta S camera producing 360 degrees, 4K pictures. The Ricoh was mounted on a Roomba iRobot driven by a tethered laptop. The Roomba was guided by masking tape on the lab floor, using Python/OpenCV for its line recognition algorithm.
 
 The 360 pictures were then post-processed in Adobe Photoshop with various scripts, then renamed with the help of Advanced Renamer.
 
