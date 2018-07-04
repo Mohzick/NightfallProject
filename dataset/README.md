@@ -14,17 +14,19 @@ DN2 is the highest quality set of pictures and also the most numerous. It was ca
 However, the robot's path was planned more carefully and all lit screens were shut down to ensure darkness.
 
 DN3 was captured using another method: the camera was tethered to the computer and 4K screenshots were made using MPC-HC.
-It produced rather a low-quality result (this doesn't really matter since everything was resized afterwards).
+It produced rather a low-quality result  and some images are nearly black.
 However, no exposure adustments have been made: this could be a problem for machine learning, with the numerous artifacts in the night pictures.
 
 DN4_Dark: as its name implies, IT contains the pictures that received no or insufficient illumination during night. We will see if those are exploitable.
 
-DN5_all is a combination of DN1 and DN2 which are relatively similar datasets. It yields pretty good results when feeded to the neural network. Other dataset of this kind will be made in the near future.
+DN5_all is a combination of DN1 and DN2 which are relatively similar datasets. It yields pretty good results when feeded to the neural network. Other dataset of this kind will be made in the near future. After a 1000 epochs training, it gives better results when applied to DN3. 
 
 DN6 is a combination of DN1 and DN2, cut into four sub-photos instead of being resized. The idea behind DN6 is that the other datasets required to images to be resized from 1440px to 350px, in order to help the neural network by reducing the amount of calculations needed. A lot of data is lost and wasted this way. Instead, what can be done is to crop the full images into smaller ones, eliminating the need for resizing. 
 DN6 especially focuses on details. Each image size is 450x450 px (4 images from a 900x900 image). To be tested. 
 
-DN7 is a combination of DN5 and resized DN6 (both sizes are 350x350 px). It gives details (4/5 of the dataset) and a general view (1/5) of the room at the same time. It is the most extensive dataset as for now, containing 1084 pairs (865 from DN6 and 219 from DN5). To be tested.
+DN7 is a combination of DN5 and resized DN6 (both sizes are 350x350 px). It gives details (4/5 of the dataset) and a general view (1/5) of the room at the same time. It is the most extensive dataset as for now, containing 1084 pairs (865 from DN6 and 219 from DN5). The results are mixed: for 250 epochs which took more than 15 hours, the neural network did NOT produce a more accurate model than before.
+
+KG1 is a dataset from another student of CARE Lab, Koga. He graciously offered us his 106-pictures dataset from last year. This dataset was captured during the day, so no image is completely black as sunlight could get through the lab windows. The result is 424 pairs with the lights on and off.
 
 Further dataset types will come, depending on the needs of the project.
 
