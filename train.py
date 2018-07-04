@@ -13,6 +13,9 @@ from gan import createGenerator, createDiscriminator, GANLoss, print_net
 from imagesDataset import getTrainingDataset, getTestingDataset
 import torch.backends.cudnn as cudnn
 
+import time
+start = time.time()
+
 input_rgb = 3
 output_rgb = 3
 gen_filters = 64
@@ -23,13 +26,13 @@ batchSizeT = 1
 lr = 0.0002
 beta1 = 0.5
 lamb = 10
-nbEpochs = 200
+nbEpochs = 1
 
 size = 352
 torch.cuda.manual_seed(123)
 print('------------------------ DATASET LOADING ------------------------')
 
-main_path = "realDataset/"
+main_path = "DatasetInput/"
 
 training_set = getTrainingDataset(main_path)
 testing_set = getTestingDataset(main_path)
@@ -43,6 +46,8 @@ print('------------------------ BUILDING GAN ------------------------')
 
 gen = createGenerator(input_rgb, output_rgb, gen_filters, 'batch', [0])
 dis = createDiscriminator(input_rgb + output_rgb, dis_filters, 'batch', [0])
+#gen = torch.load("genmodel.pth")
+#dis = torch.load("dismodel.pth")
 
 criterionGAN = GANLoss()
 criterionL1 = nn.L1Loss()
@@ -130,17 +135,17 @@ def train(epoch):
 		print('------------------------ ------------------------ ------------------------')
 
 		print("------------------------ EPOCH [{}]({}/{}) : LOSS GEN = {:.4f}, LOSS DIS = {:.4f}------------------------".format(epoch, iteration, len(training_data_loader), loss_g.data[0], loss_d.data[0]))
-		pipi = fake_Day.detach().data[0]
-		pipi2 = real_Night.detach().data[0]
-		string1 = "/home/mohzick/NightfallProject/tesuto/day/test"
+		data = fake_Day.detach().data[0]
+		data2 = real_Night.detach().data[0]
+		string1 = "/home/mohzick/NightfallProject/TestOutputs/datasetTest/dayTest/test"
 		string12 = "%d" % iteration
-		string13 = ".jpg"
-		string14 = string1 + string12 + string13
-		string2 = "/home/mohzick/NightfallProject/tesuto/night/test"
-		string22 = string2 + string12 + string13
+		stringExtension = ".jpg"
+		string14 = string1 + string12 + stringExtension
+		string2 = "/home/mohzick/NightfallProject/TestOutputs/datasetTest/nightTest/test"
+		string22 = string2 + string12 + stringExtension
 	
-		saveImage(pipi.cpu(), string14)
-		saveImage(pipi2.cpu(), string22)	
+		saveImage(data.cpu(), string14)
+		saveImage(data2.cpu(), string22)	
 
 def test():
 	
@@ -152,23 +157,36 @@ def test():
 
 		fake_Day = gen(real_Night)
 
-		pipi = fake_Day.detach().data[0]
-		pipi2 = real_Night.detach().data[0]
-		string1 = "/home/mohzick/NightfallProject/realtest/day/test"
+		data = fake_Day.detach().data[0]
+		data2 = real_Night.detach().data[0]
+		string1 = "/home/mohzick/NightfallProject/TestOutputs/realTest/dayTest/test"
 		string12 = "%d" % iteration
-		string13 = ".jpg"
-		string14 = string1 + string12 + string13
-		string2 = "/home/mohzick/NightfallProject/realtest/night/test"
-		string22 = string2 + string12 + string13
+		stringExtension = ".jpg"
+		string14 = string1 + string12 + stringExtension
+		string2 = "/home/mohzick/NightfallProject/TestOutputs/realTest/nightTest/test"
+		string22 = string2 + string12 + stringExtension
 	
-		saveImage(pipi.cpu(), string14)
-		saveImage(pipi2.cpu(), string22)	
+		saveImage(data.cpu(), string14)
+		saveImage(data2.cpu(), string22)	
+
+def save(gen, dis):
+	torch.save(gen, "genmodeltest.pth")
+	torch.save(dis, "dismodeltest.pth")
+	print("Model successfully saved.")
 
 
 
 for epoch in range(1, nbEpochs + 1):
 	train(epoch)
-	test()
+
+save(gen, dis)
+
+test()
+
+end = time.time()
+totalTime = end - start
+print("Process time:", totalTime, "seconds")
+
 
 
 
