@@ -2,11 +2,12 @@
 
 This is a dataset of night and day pictures of the same location captured for Project Nightfall.
 
-The night and day pairs are combinated into a single image with a size of 700x350px. A python script is also included in order to combine a pair of images. Should you want to use them separately, please check the RAW folder.
+The night and day pairs are combinated into a single image with a size of 700x350px. A python script is also included in order to combine a pair of images. 
+Should you want to use them separately, please check the SingeImages folder.
+
+The original files have been placed into the folder named Originals. The Webcam test inputs are Webcam.
 
 ## 1. Content
-
-The folders are 
 
 DN1 is the first attempt of capture (see section 2 for capture method)
 
@@ -27,6 +28,8 @@ DN6 especially focuses on details. Each image size is 450x450 px (4 images from 
 DN7 is a combination of DN5 and resized DN6 (both sizes are 350x350 px). It gives details (4/5 of the dataset) and a general view (1/5) of the room at the same time. It is the most extensive dataset as for now, containing 1084 pairs (865 from DN6 and 219 from DN5). The results are mixed: for 250 epochs which took more than 15 hours, the neural network did NOT produce a more accurate model than before.
 
 KG1 is a dataset from another student of CARE Lab, Koga. He graciously offered us his 106-pictures dataset from last year. This dataset was captured during the day, so no image is completely black as sunlight could get through the lab windows. The result is 424 pairs with the lights on and off.
+
+CGN1 is a conbination of DN1, 2, 3 and 4, totalling 312 pairs. Although CycleGAN doesn't need pairs, we don't have anything else at the moment.
 
 Further dataset types will come, depending on the needs of the project.
 
