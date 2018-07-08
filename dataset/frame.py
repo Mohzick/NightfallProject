@@ -27,7 +27,7 @@ def extractImages(inFolder, outFolder):
     while success:
 
       success,image = vidcap.read()
-
+      print(success)
       counter += 1
       if success:
         if counter%2 == 0:
