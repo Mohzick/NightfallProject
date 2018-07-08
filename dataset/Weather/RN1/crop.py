@@ -19,11 +19,11 @@ for arg in vars(args):
 
 if __name__=='__main__':
 
-    imgDir = '.\\trainRain'
-    saveDir = '.\\trainRainCrop'
+    inFolder = '.\\trainSun'
+    outFolder = '.\\trainSunCrop'
     fileName = '*.JPG'
 
-    fileList = glob.glob(os.path.join(imgDir,fileName))
+    fileList = glob.glob(os.path.join(inFolder,fileName))
 
     for truc, filePath in enumerate(fileList):
         
@@ -59,7 +59,7 @@ if __name__=='__main__':
                 #saving image
                 counter += 1
 
-                path = saveDir
+                path = outFolder
                 if not os.path.isdir(path):
                     os.makedirs(path)
                 fileName = '\\out'  
