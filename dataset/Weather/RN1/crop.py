@@ -23,6 +23,9 @@ if __name__=='__main__':
     inFolder = args.inFolder
     outFolder = args.outFolder
 
+    if (inFolder == None):
+        print("ciao")
+
     #file list inFolder
     for entry in os.scandir(inFolder):
         if entry.is_file():
@@ -56,12 +59,10 @@ if __name__=='__main__':
                     outputImg = resizeimage.resize_cover(croppedImg, [imgResize, imgResize])
 
                     #saving image
+                    
                     counter += 1
 
-                    path = outFolder
-                    if not os.path.isdir(path):
-                        os.makedirs(path)
-                    fileName = '\\out'  
-                    extension = ".jpg"
-                    outputPath = path + fileName + str(counter) + extension
-                    outputImg.save(outputPath)
+                    if not os.path.isdir(outFolder):
+                        os.makedirs(outFolder)
+
+                    outputImg.save(outFolder + "\\out%d.jpg" % counter)

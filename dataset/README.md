@@ -1,13 +1,31 @@
-# Intro
+# Dataset for Nightfall Project
 
-This is a dataset of night and day pictures of the same location captured for Project Nightfall.
+This is a dataset of night and day pictures of the same location captured for the project.
 
-The night and day pairs are combinated into a single image with a size of 700x350px. A python script is also included in order to combine a pair of images. 
-Should you want to use them separately, please check the SingeImages folder.
 
-The original files have been placed into the folder named Originals. The Webcam test inputs are Webcam.
+## 1. How to use
 
-## 1. Content
+The datasets are uploaded as is and are ready to be loaded into a neural network. 
+
+Most of the datasets are divised into pairs of Day and Night photos. Those can be used for a Pix2Pix algorithm since both photos have been captured at the same location. 
+
+Should you want to check if the pairs have been captured from the exact same location, a python script (`dataset/CombinatedImages/combine.py`) is also included in order to combine a pair of images into a single image with a size of 700x350px.
+
+The original files have been placed into  (`dataset/Originals`). The Webcam test inputs are in  (`dataset/Webcam`).
+
+
+### Running the scripts
+
+```
+python .\crop.py --resize 350 --startpos 0 --divide 2 --inFolder ../path/to/input/large/pictures/.. --outFolder ../path/to/output/cropped/pictures/..
+
+python .\frame.py --inFolder ../path/to/input/videos/.. --outFolder ../path/to/output/frames/..
+
+python .\combine.py
+
+```
+
+## 2. The datasets' content
 
 DN1 is the first attempt of capture (see section 2 for capture method)
 
@@ -31,10 +49,13 @@ KG1 is a dataset from another student of CARE Lab, Koga. He graciously offered u
 
 CGN1 is a conbination of DN1, 2, 3 and 4, totalling 312 pairs. Although CycleGAN doesn't need pairs, we don't have anything else at the moment.
 
+Weather/RN1 is a new dataset used in the CycleGAN training ************TODO*************
+
+Webcam is very dark
+
 Further dataset types will come, depending on the needs of the project.
 
-
-## 2. Methodology
+## 3. Methodology
 
 For image capture, I used a Ricoh Theta S camera producing 360 degrees, 4K pictures. The Ricoh was mounted on a Roomba iRobot driven by a tethered laptop. The Roomba was guided by masking tape on the lab floor, using Python/OpenCV for its line recognition algorithm.
 
