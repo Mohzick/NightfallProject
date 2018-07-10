@@ -1,13 +1,14 @@
 # NightfallProject
 
 **Nightfall Project**'s objective is to transform a photo (for example night to day or rainy to sunny) using machine learning.
-This project was developped during a 3-months long internship at CARE Lab (Nara Institute of Science and Technology, Nara, Japan) by a team of two, **@Mohzick** and **@minh-n**.
+This project was developped during a 3-months long internship at CARE Lab (Nara Institute of Science and Technology, Nara, Japan) by a team of two, [@Mohzick](https://github.com/Mohzick) and [@minh-n](https://github.com/minh-n).
 
 ## Introduction and motivations
 
-This project tackles the basics of machine learning and computer vision. 
+This project tackles the basics of machine learning and computer vision. It is mostly a learning experience and reuses the work of Nvidia who developped the main ideas behind the Pix2Pix and CycleGAN machine learning algorithms.
 
-Rain -> several applications in automated vehicles, surveillance and even tourism/AR attractions.
+Transforming Rain to Sun has several applications in automated vehicles, surveillance and even tourism/AR attractions.
+Transforming Night to Day also has these applications. Both would eventually benefit from a porting to smartphones and AR glasses.
 
 ## How to run
 
