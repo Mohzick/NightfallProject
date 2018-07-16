@@ -1,9 +1,15 @@
 import sys
 import argparse
 import os
+import shutil
+
+import crop
 
 import cv2
 print(cv2.__version__)
+
+import time
+start = time.time()
 
 counter = 0
 
@@ -12,14 +18,22 @@ parser.add_argument("--inFolder", help="Input videos folder")
 parser.add_argument("--outFolder", help="Empty output folder")
 args = parser.parse_args()
 
-for arg in vars(args):
-    print('[%s] = ' % arg,  getattr(args, arg))
+#for arg in vars(args):
+    #print('[{0}] = '.format(arg),  getattr(args, arg))
 
-def extractImages(inFolder, outFolder):
+
+'''
+  extractImages takes a file path and an output folder path
+  extracts 1/2 frames of the video into the output folder
+'''
+def extractImages(inFile, outFolder):
 
     global counter
+    completionCounter = 0
 
-    vidcap = cv2.VideoCapture(inFolder)
+    vidcap = cv2.VideoCapture(inFile)
+    length = int(vidcap.get(cv2.CAP_PROP_FRAME_COUNT))
+
     #success,image = vidcap.read()
 
     success = True #why
@@ -27,17 +41,53 @@ def extractImages(inFolder, outFolder):
     while success:
 
       success,image = vidcap.read()
-      print(success)
       counter += 1
+      completionCounter += 1
       if success:
         if counter%2 == 0:
-          cv2.imwrite( outFolder + "\\frame%d.jpg" % counter, image)     # save frame as JPEG file
+          imgName = str(counter).zfill(6)
+
+          cv2.imwrite( outFolder + "\\" + imgName + ".jpg", image)     # save frame as JPEG file
+          percentage = int((completionCounter/length)*100)
+          print("Progress = {0} %...".format(percentage), end='\r')
+
+
+
+def extractVideoFolder(inFolder, outFolder):
+
+      for entry in os.scandir(inFolder):
+        if entry.is_file():
+            extractImages(entry.path, outFolder)
+
+      crop.cropper(350, 1, 850, outFolder, ".\\ouialorsoui")
+
 
 if __name__=="__main__":
-     
+
+    if not os.path.isdir(args.outFolder):
+        os.makedirs(args.outFolder)
+
+    print("\n------------\nThank you for choosing our extracting and cropping program.\n------------\n")
     for entry in os.scandir(args.inFolder):
         if entry.is_file():
-            #files.append(entry.path)
+            print("\n------------\nBeginning work on video {0}: extracting 1/2 frames and storing them into {1}.\n------------\n".format(entry.path, args.outFolder))
             extractImages(entry.path, args.outFolder)
-  
+            print("\n------------\nWork on video {0} is complete!\n------------\n".format(entry.path))
 
+
+    outputCrop = ".\\ouialorsoui"
+    if not os.path.isdir(outputCrop):
+        os.makedirs(outputCrop)
+
+    print("\n------------\nSuccessfully extracted images from videos in {0}.".format(args.inFolder))
+    print("Now attempting to crop each image, storing them into {0}.\n------------\n\n".format(outputCrop))
+
+    crop.cropper(350, 1, 850, args.outFolder, outputCrop)
+
+    shutil.rmtree(args.outFolder)
+
+    print("\n\n------------\nSuccessfully extracted and cropped every images from the {0} folder.\n------------\n\n".format(args.inFolder))
+
+end = time.time()
+totalTime = end - start
+print("Process time:", totalTime, "seconds.")
