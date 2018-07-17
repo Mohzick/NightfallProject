@@ -33,8 +33,6 @@ for arg in vars(args):
 '''
 def cropper(imgResize, divide, rangeX, inFolder, outFolder):
 
-    #inFolder = args.inFolder
-    #outFolder = args.outFolder
 
     if (inFolder == None):
         print("ERROR : No folder found in %s." % inFolder)
@@ -49,7 +47,7 @@ def cropper(imgResize, divide, rangeX, inFolder, outFolder):
 def singleCrop(fileInput, imgResize, divide, rangeX, inFolder, outFolder):
 
     if "jpg" in fileInput:
-                originalImage = Image.open(inFolder + "/"+ fileInput)
+                originalImage = Image.open(inFolder + "/"+ fileInput) 
                 
                 print("Cropping {0} input image into {1} output image(s) ({2} x {3} px)...".format(fileInput, divide, imgResize, imgResize), end='\r')
 
