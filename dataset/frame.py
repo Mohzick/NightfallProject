@@ -4,6 +4,7 @@ import os
 import shutil
 
 import crop
+import videowrap
 
 import cv2
 print(cv2.__version__)
@@ -51,14 +52,16 @@ def extractImages(inFile, outFolder):
 
 if __name__=="__main__":
 
-    if not os.path.isdir("tempOutput"):
-        os.makedirs("tempOutput")
+    tempOutput = "tempOutput"
+
+    if not os.path.isdir(tempOutput):
+        os.makedirs(tempOutput)
 
     print("\n------------\nThank you for choosing our extracting and cropping program.\n------------\n")
     for entry in os.scandir(args.inFolder):
         if entry.is_file():
             print("\n------------\nBeginning work on video {0}: extracting 1/2 frames and storing them into {1}.\n------------\n".format(entry.path, args.outFolder))
-            extractImages(entry.path, "tempOutput")
+            extractImages(entry.path, tempOutput)
             print("\n------------\nWork on video {0} is complete!\n------------\n".format(entry.path))
 
     if not os.path.isdir(args.outFolder):
@@ -67,11 +70,17 @@ if __name__=="__main__":
     print("\n------------\nSuccessfully extracted images from videos in {0}.".format(args.inFolder))
     print("Now attempting to crop each image, storing them into {0}.\n------------\n\n".format(args.outFolder))
 
-    crop.cropper(350, 1, 850, "tempOutput", args.outFolder)
+    crop.cropper(350, 1, 850, tempOutput, args.outFolder)
 
-    shutil.rmtree("tempOutput")
+    shutil.rmtree(tempOutput)
 
     print("\n\n------------\nSuccessfully extracted and cropped every images from the {0} folder.\n------------\n\n".format(args.inFolder))
+
+    print("Now attempting to convert the images into a mp4 video.\n------------\n\n\n")
+
+    videowrap.folderToVideo(args.outFolder, "outVideoTest.mp4")
+
+    print("\nconversion complete.\n\n\n")
 
 end = time.time()
 totalTime = end - start
