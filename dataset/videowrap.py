@@ -4,13 +4,10 @@ import argparse
 
 def folderToVideo(inFolder, outVideo):
 
-	# Arguments
-	#inFolder = 'C:\\Users\\minh-ng\\Documents\\GitHub\\NightfallProject2\\dataset\\SingleImages\\DN1\\Day'
 	ext = "jpg"
-	#outVideo = "salut.mp4"
 
 	images = []
-	for f in os.listdir(inFolder):
+	for f in sorted(os.listdir(inFolder)):
 	    if f.endswith(ext):
 	        images.append(f)
 
@@ -22,7 +19,7 @@ def folderToVideo(inFolder, outVideo):
 
 	# Define the codec and create VideoWriter object
 	fourcc = cv2.VideoWriter_fourcc(*'mp4v') # Be sure to use lower case
-	out = cv2.VideoWriter(outVideo, fourcc, 15.0, (width, height))
+	out = cv2.VideoWriter(outVideo, fourcc, 15.0, (height, width))
 
 
 
@@ -34,12 +31,8 @@ def folderToVideo(inFolder, outVideo):
 	    out.write(frame) # Write out frame to video
 
 	    cv2.imshow('video',frame)
-	    if (cv2.waitKey(1) & 0xFF) == ord('q'): # Hit `q` to exit
-	        break
 
 	# Release everything if job is finished
 	out.release()
-	#cv2.destroyAllWindows()
 
 	print("The output video is {}".format(outVideo))
-	#does not work on linux: https://github.com/ContinuumIO/anaconda-issues/issues/223

@@ -106,5 +106,7 @@ def cropFromPosition(imgResize, x, outputWidth, inputWidth, outputHeight, startP
         if not os.path.isdir(outFolder):
             os.makedirs(outFolder)
 
-        outputImg.save(outFolder + "/out%d.jpg" % counter)
+        imgName = str(counter).zfill(5)
+
+        outputImg.save(outFolder + "/" + imgName + ".jpg")
 
