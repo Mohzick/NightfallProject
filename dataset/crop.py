@@ -40,18 +40,18 @@ def cropper(imgResize, divide, rangeX, inFolder, outFolder):
         print("ERROR : No folder found in %s." % inFolder)
 
     #go through file list inFolder
-    for entry in os.scandir(inFolder):
-        singleCrop(entry, imgResize, divide, rangeX, outFolder)
+    for entry in sorted(os.listdir(inFolder)):
+        singleCrop(entry, imgResize, divide, rangeX, inFolder, outFolder)
 
 '''
     Auxiliray function: crops one input image to produce several output images
 '''
-def singleCrop(fileInput, imgResize, divide, rangeX, outFolder):
+def singleCrop(fileInput, imgResize, divide, rangeX, inFolder, outFolder):
 
-    if fileInput.is_file():
-                originalImage = Image.open(fileInput.path)
+    if "jpg" in fileInput:
+                originalImage = Image.open(inFolder + "/"+ fileInput)
                 
-                print("Cropping {0} input image into {1} output image(s) ({2} x {3} px)...".format(fileInput.path, divide, imgResize, imgResize),  end='\r')
+                print("Cropping {0} input image into {1} output image(s) ({2} x {3} px)...".format(fileInput, divide, imgResize, imgResize), end='\r')
 
                 inputWidth, inputHeight = originalImage.size
 
@@ -108,5 +108,5 @@ def cropFromPosition(imgResize, x, outputWidth, inputWidth, outputHeight, startP
         if not os.path.isdir(outFolder):
             os.makedirs(outFolder)
 
-        outputImg.save(outFolder + "\\out%d.jpg" % counter)
+        outputImg.save(outFolder + "/out%d.jpg" % counter)
 

@@ -33,9 +33,6 @@ def extractImages(inFile, outFolder):
 
     vidcap = cv2.VideoCapture(inFile)
     length = int(vidcap.get(cv2.CAP_PROP_FRAME_COUNT))
-
-    #success,image = vidcap.read()
-
     success = True #why
 
     while success:
@@ -47,44 +44,32 @@ def extractImages(inFile, outFolder):
         if counter%2 == 0:
           imgName = str(counter).zfill(6)
 
-          cv2.imwrite( outFolder + "\\" + imgName + ".jpg", image)     # save frame as JPEG file
+          cv2.imwrite( outFolder + "/" + imgName + ".jpg", image)     # save frame as JPEG file
           percentage = int((completionCounter/length)*100)
           print("Progress = {0} %...".format(percentage), end='\r')
 
 
-
-def extractVideoFolder(inFolder, outFolder):
-
-      for entry in os.scandir(inFolder):
-        if entry.is_file():
-            extractImages(entry.path, outFolder)
-
-      crop.cropper(350, 1, 850, outFolder, ".\\ouialorsoui")
-
-
 if __name__=="__main__":
 
-    if not os.path.isdir(args.outFolder):
-        os.makedirs(args.outFolder)
+    if not os.path.isdir("tempOutput"):
+        os.makedirs("tempOutput")
 
     print("\n------------\nThank you for choosing our extracting and cropping program.\n------------\n")
     for entry in os.scandir(args.inFolder):
         if entry.is_file():
             print("\n------------\nBeginning work on video {0}: extracting 1/2 frames and storing them into {1}.\n------------\n".format(entry.path, args.outFolder))
-            extractImages(entry.path, args.outFolder)
+            extractImages(entry.path, "tempOutput")
             print("\n------------\nWork on video {0} is complete!\n------------\n".format(entry.path))
 
-
-    outputCrop = ".\\ouialorsoui"
-    if not os.path.isdir(outputCrop):
-        os.makedirs(outputCrop)
+    if not os.path.isdir(args.outFolder):
+        os.makedirs(args.outFolder)
 
     print("\n------------\nSuccessfully extracted images from videos in {0}.".format(args.inFolder))
-    print("Now attempting to crop each image, storing them into {0}.\n------------\n\n".format(outputCrop))
+    print("Now attempting to crop each image, storing them into {0}.\n------------\n\n".format(args.outFolder))
 
-    crop.cropper(350, 1, 850, args.outFolder, outputCrop)
+    crop.cropper(350, 1, 850, "tempOutput", args.outFolder)
 
-    shutil.rmtree(args.outFolder)
+    shutil.rmtree("tempOutput")
 
     print("\n\n------------\nSuccessfully extracted and cropped every images from the {0} folder.\n------------\n\n".format(args.inFolder))
 
