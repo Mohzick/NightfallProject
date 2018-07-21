@@ -2,17 +2,23 @@ from __future__ import print_function
 import argparse
 import os
 from math import log10
+import numpy as np
 
 import torch
 import torch.nn as nn
 import torch.optim as optim
 from torch.autograd import Variable
 from torch.utils.data import DataLoader
+import torchvision.transforms as transforms
+
 from imagesDataset import saveImage
+from PIL import Image
 from gan import createGenerator, createDiscriminator, GANLoss, print_net
 from imagesDataset import getTrainingDataset, getTestingDataset
 import torch.backends.cudnn as cudnn
-import webcam
+import interface
+
+import cv2
 
 import time
 start = time.time()
@@ -148,9 +154,10 @@ def train(epoch):
 		saveImage(data.cpu(), string14)
 		saveImage(data2.cpu(), string22)	
 
+gen = gen.cuda()
 def test():
 	
-	for iteration, batch in enumerate(testing_data_loader, 1):
+	'''for iteration, batch in enumerate(testing_data_loader, 1):
 
 		real_Night_cpu, real_Day_cpu = batch[0], batch[1]
 		real_Night.data.resize_(real_Night_cpu.size()).copy_(real_Night_cpu)
@@ -168,7 +175,52 @@ def test():
 		string22 = string2 + string12 + stringExtension
 	
 		saveImage(data.cpu(), string14)
-		saveImage(data2.cpu(), string22)	
+		saveImage(data2.cpu(), string22)'''
+	interface.init_app()
+	interface.init_window(x=320, w=(interface.screen_size().width()-320), h=(interface.screen_size().width()-320)*0.4)
+	boucle = True
+	capture = cv2.VideoCapture(0)
+	transformation = transforms.Compose([transforms.ToTensor(), 
+                                                 transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))]) 
+	while(boucle):
+		ok, img = capture.read()
+		img = cv2.cvtColor(img,cv2.COLOR_BGR2RGB)
+		img = Image.fromarray(img)
+		img = img.convert('RGB')
+		img = img.resize((size, size), Image.BICUBIC)
+
+		img2 = transformation(img)
+		img2.unsqueeze_(0)
+		img2 = img2.cuda()
+		#print(type(img))
+		#cv2.imshow('frere', img)
+		#cv2.waitKey(0)
+		#img2 = img.asarray(img)
+		#img2 = img2.transforms.Compose([transforms.ToTensor(), 
+	                                  #transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
+		
+		img3 = gen(img2)
+		img3 = img3.detach().data[0]
+		image_numpy = img3.cpu().float().numpy()
+		'''print(type(image_numpy))
+		print(image_numpy.shape)'''
+		image_numpy = (np.transpose(image_numpy, (1, 2, 0)) + 1) / 2.0 * 255.0
+		image_numpy = image_numpy.astype(np.uint8)
+		image_pred = Image.fromarray(image_numpy)
+		imgin = np.array(img)
+		imgout = np.array(image_pred)
+		interface.update_image(0, imgin)
+		interface.update_image(1, imgout)
+		interface.process_events()
+		#image_pred.save('test.jpg')
+		#cv2.imshow('day', image_pred)
+		#cv2.waitKey(0)
+		
+
+		print('yes')
+
+
+
 
 def save(gen, dis):
 	torch.save(gen, "genmodeltest.pth")
@@ -177,7 +229,7 @@ def save(gen, dis):
 
 
 
-for epoch in range(1, nbEpochs + 1):
+#for epoch in range(1, nbEpochs + 1):
 	#train(epoch)
 
 #save(gen, dis)
