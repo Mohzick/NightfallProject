@@ -75,8 +75,8 @@ def init_window(x=0, y=0, w=500, h=300, title='NightfallProject'):
     view.show()
     
     imgs = []
-    imgs.append( _add_image_to_layout(layout, title='DAY') )
     imgs.append( _add_image_to_layout(layout, title='NIGHT') )
+    imgs.append( _add_image_to_layout(layout, title='DAY') )
     
     layout.nextRow()
 

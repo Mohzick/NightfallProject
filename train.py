@@ -51,10 +51,10 @@ print('------------------------ DATASET LOADED ------------------------')
 
 print('------------------------ BUILDING GAN ------------------------')
 
-#gen = createGenerator(input_rgb, output_rgb, gen_filters, 'batch', [0])
-#dis = createDiscriminator(input_rgb + output_rgb, dis_filters, 'batch', [0])
-gen = torch.load("genmodel.pth")
-dis = torch.load("dismodel.pth")
+gen = createGenerator(input_rgb, output_rgb, gen_filters, 'batch', [0])
+dis = createDiscriminator(input_rgb + output_rgb, dis_filters, 'batch', [0])
+#gen = torch.load("genmodel.pth")
+#dis = torch.load("dismodel.pth")
 
 criterionGAN = GANLoss()
 criterionL1 = nn.L1Loss()
