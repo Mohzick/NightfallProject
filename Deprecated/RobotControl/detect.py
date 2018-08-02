@@ -4,9 +4,6 @@ import create2api
 
 from breezycreate2 import Robot
 import time
-
-
-
 import io
 import cv2
 import numpy as np
@@ -17,30 +14,14 @@ from multiprocessing.dummy import Pool as ThreadPool
 import move
 
 
-
 # Create a Create2. This will automatically try to connect to your robot over serial
 bot = Robot()
 
 # Play a note to let us know you're alive!
 #bot.playNote('A4', 100)
 
-# Tell the Create2 to turn right slowly
-#bot.setTurnSpeed(-50)
-
-# Wait a second
-#time.sleep(1)
-
 # Stop
 #bot.setTurnSpeed(0)
-
-
-
-# Report bumper hits and wall proximity for 30 seconds
-#start_time = time.time()
-#while (time.time() - start_time) < 30:
- #   print('Bumpers: ' + str(bot.getBumpers()) + '    Wall: ' + str(bot.getWallSensor()))
-
-# Close the connection
 
 
 
@@ -54,13 +35,7 @@ CONTROL_SCAN_RADIUS = 'Scan Radius'
 CONTROL_NUMBER_OF_CIRCLES = 'Number of Scans'
 CONTROL_LINE_WIDTH = 'Line Width'
 
-# Resolution of the camera image. larger images allow for more detail, but take more to process.
-# valid resolutions include:
-#   160 x 120
-#   320 x 240
-#   640 x 480
-#   800 x 600
-# etc...
+# Resolution of the camera image. 
 RESOLUTION_X = 640
 RESOLUTION_Y = 480
 
@@ -74,7 +49,7 @@ SCAN_POS_X = RESOLUTION_X / 2
 
 # This is the radius that we scan from the last known point for each of the circles
 SCAN_RADIUS_REG = 25
-# The number of itterations we scan to allow us to look ahead and give us more time
+# The number of iterations we scan to allow us to look ahead and give us more time
 # to make better choices
 NUMBER_OF_CIRCLES = 3
 
@@ -102,8 +77,7 @@ def coordinateFromPoint(origin, angle, radius):
         # Work out the co-ordinate for the pixel on the circumference of the circle
         x = xo - radius * math.cos(math.radians(angle))
         y = yo + radius * math.sin(math.radians(angle))
-        
-        # We only want whole numbers
+
         x = int(round(x))
         y = int(round(y))
         return (x, y);
@@ -213,13 +187,6 @@ def findLine(display_image, scan_data, x, y, radius):
 
 
         line_position = (right[0] + left[0]) / 2
-        #print("line position {} {}, {} - {}".format(scan_start, left, right, line_position))
-        # mid point, where we believe is the centre of the line
-        #cv2.circle(display_image, (scan_start + line_position, y), 5, (0, 204, 102), -1, 8, 0)
-        # left boundrary dot on the line
-        #cv2.circle(display_image, (scan_start + left[0], y), 5, (0, 0, 102), -1, 4, 0)
-        # right boundrary dot on the line
-        #cv2.circle(display_image, (scan_start + right[0], y), 5, (0, 0, 102), -1, 4, 0)
         return (scan_start + line_position, y);
 
 def lineAngle(point1, point2):
@@ -260,10 +227,8 @@ def main():
 
         # Create a window
         cv2.namedWindow(WINDOW_DISPLAY_IMAGE)
-        # position the window
         cv2.moveWindow(WINDOW_DISPLAY_IMAGE, 0, 35)
 
-        # Add some controls to the window
         cv2.createTrackbar(CONTROL_SCAN_RADIUS, WINDOW_DISPLAY_IMAGE, 5, 50, onScanRadiusChange)
         cv2.setTrackbarPos(CONTROL_SCAN_RADIUS, WINDOW_DISPLAY_IMAGE, SCAN_RADIUS_REG)
 
