@@ -14,7 +14,7 @@ import torchvision.transforms as transforms
 from imagesDataset import saveImage
 from PIL import Image
 from gan import createGenerator, createDiscriminator, GANLoss, print_net
-from imagesDataset import getTrainingDataset, getTestingDataset
+from imagesDataset import getTrainingDataset, getTestingDataset, tensorToArray
 import torch.backends.cudnn as cudnn
 import interface
 
@@ -33,7 +33,7 @@ batchSizeT = 1
 lr = 0.0002
 beta1 = 0.5
 lamb = 10
-nbEpochs = 1
+nbEpochs = 250
 
 size = 352
 torch.cuda.manual_seed(123)
@@ -53,8 +53,6 @@ print('------------------------ BUILDING GAN ------------------------')
 
 gen = createGenerator(input_rgb, output_rgb, gen_filters, 'batch', [0])
 dis = createDiscriminator(input_rgb + output_rgb, dis_filters, 'batch', [0])
-#gen = torch.load("genmodel.pth")
-#dis = torch.load("dismodel.pth")
 
 criterionGAN = GANLoss()
 criterionL1 = nn.L1Loss()
@@ -88,6 +86,8 @@ if torch.cuda.is_available():
 
 def train(epoch):
 
+	i = 0
+	
 	for iteration, batch in enumerate(training_data_loader, 1):
 
 		real_Night_cpu, real_Day_cpu = batch[0], batch[1]
@@ -144,17 +144,24 @@ def train(epoch):
 		print("------------------------ EPOCH [{}]({}/{}) : LOSS GEN = {:.4f}, LOSS DIS = {:.4f}------------------------".format(epoch, iteration, len(training_data_loader), loss_g.data[0], loss_d.data[0]))
 		data = fake_Day.detach().data[0]
 		data2 = real_Night.detach().data[0]
-		string1 = "/home/mohzick/NightfallProject/TestOutputs/datasetTest/dayTest/test"
+		string1 = "/home/mohzick/NightfallProject/Results/datasetTest/dayTest/test"
 		string12 = "%d" % iteration
 		stringExtension = ".jpg"
 		string14 = string1 + string12 + stringExtension
-		string2 = "/home/mohzick/NightfallProject/TestOutputs/datasetTest/nightTest/test"
+		string2 = "/home/mohzick/NightfallProject/Results/datasetTest/nightTest/test"
 		string22 = string2 + string12 + stringExtension
 	
 		saveImage(data.cpu(), string14)
-		saveImage(data2.cpu(), string22)	
+		saveImage(data2.cpu(), string22)
+		if i%10 == 0:
+			jour = tensorToArray(data.cpu())
+			nuit = tensorToArray(data2.cpu())
+			interface.update_image(0, nuit)
+			interface.update_image(1, jour)
+			interface.process_events()
 
-gen = gen.cuda()
+
+#gen = gen.cuda()
 def test():
 	
 	'''for iteration, batch in enumerate(testing_data_loader, 1):
@@ -202,8 +209,6 @@ def test():
 		img3 = gen(img2)
 		img3 = img3.detach().data[0]
 		image_numpy = img3.cpu().float().numpy()
-		'''print(type(image_numpy))
-		print(image_numpy.shape)'''
 		image_numpy = (np.transpose(image_numpy, (1, 2, 0)) + 1) / 2.0 * 255.0
 		image_numpy = image_numpy.astype(np.uint8)
 		image_pred = Image.fromarray(image_numpy)
@@ -223,18 +228,17 @@ def test():
 
 
 def save(gen, dis):
-	torch.save(gen, "genmodeltest.pth")
-	torch.save(dis, "dismodeltest.pth")
+	torch.save(gen, "newgenmodeltest.pth")
+	torch.save(dis, "newdismodeltest.pth")
 	print("Model successfully saved.")
 
 
+interface.init_app()
+interface.init_window(x=320, w=(interface.screen_size().width()-320), h=(interface.screen_size().width()-320)*0.4)
+for epoch in range(1, nbEpochs + 1):
+	train(epoch)
 
-#for epoch in range(1, nbEpochs + 1):
-	#train(epoch)
-
-#save(gen, dis)
-
-test()
+save(gen, dis)
 
 end = time.time()
 totalTime = end - start

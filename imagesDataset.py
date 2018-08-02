@@ -27,6 +27,14 @@ def saveImage(image_tensor, filename):
     print("Image saved as {}".format(filename))
 
 
+def tensorToArray(image_tensor):
+    image_numpy = image_tensor.float().numpy()
+    image_numpy = (np.transpose(image_numpy, (1, 2, 0)) + 1) / 2.0 * 255.0
+    image_numpy = image_numpy.astype(np.uint8)
+    image_pil = Image.fromarray(image_numpy)
+    imgout = np.array(image_pil)
+    return imgout
+   
 
 
 
@@ -58,6 +66,28 @@ class createDataset(data.Dataset):
     def __len__(self):
         return len(self.images_name)
 
+class createDatasetTest(data.Dataset):
+
+    def __init__(self, image_folder):
+        super(createDatasetTest, self).__init__()
+        self.night_path = image_folder
+        self.images_name = [n for n in listdir(self.night_path) if isImage(n)]
+
+        self.transformation = transforms.Compose([transforms.ToTensor(), 
+                                                 transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))]) 
+
+    #function allowing to load image
+
+    def __getitem__(self, index):
+        input = loadImage(join(self.night_path, self.images_name[index]))
+        input = self.transformation(input)
+        return input
+
+    #function allowing us to know the length of a dataset
+
+    def __len__(self):
+        return len(self.images_name)
+
 
 #functions allowing us to load either the training set to train our network 
 #or to test one already trained
@@ -68,9 +98,9 @@ def getTrainingDataset(folderpath):
     return createDataset(trainingFolder)
 
 def getTestingDataset(folderpath):
-    trainingFolder = join(folderpath, "testing")
+    testingFolder = folderpath
 
-    return createDataset(trainingFolder)
+    return createDatasetTest(testingFolder)
 
 
 

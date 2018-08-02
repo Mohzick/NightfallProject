@@ -3,28 +3,26 @@ import argparse
 import os
 import shutil
 
-import crop
-import videowrap
+import dataset.crop as crop
+import dataset.videowrap as videowrap
 
 import cv2
 print(cv2.__version__)
 
 import time
-start = time.time()
-
+#start = time.time()
 counter = 0
 
-parser = argparse.ArgumentParser()
+'''parser = argparse.ArgumentParser()
 parser.add_argument("--inFolder", help="Input videos folder")
 parser.add_argument("--outFolder", help="Empty output folder")
-args = parser.parse_args()
+args = parser.parse_args()'''
 
 #for arg in vars(args):
     #print('[{0}] = '.format(arg),  getattr(args, arg))
 
 
-'''
-  extractImages takes a file path and an output folder path
+'''extractImages takes a file path and an output folder path
   extracts 1/2 frames of the video into the output folder
 '''
 def extractImages(inFile, outFolder):
@@ -49,7 +47,7 @@ def extractImages(inFile, outFolder):
           percentage = int((completionCounter/length)*100)
           print("Progress = {0} %...".format(percentage), end='\r')
 
-
+'''
 if __name__=="__main__":
 
     tempOutput = "tempOutput"
@@ -84,4 +82,4 @@ if __name__=="__main__":
 
 end = time.time()
 totalTime = end - start
-print("Process time:", totalTime, "seconds.")
+print("Process time:", totalTime, "seconds.")'''
