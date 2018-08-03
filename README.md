@@ -9,7 +9,7 @@ Nightfall Project originally aims to convert a night video into a day video, usi
 
 This project tackles the basics of machine learning and computer vision. It is mostly a learning experience and reuses the work of Nvidia who developped the main ideas behind the Pix2Pix and CycleGAN machine learning algorithms. 
 
-This project is broadly divided into two parts: in order to train the neural network, I created a dataset composed of various kind of images. Some of them are pairs of day and night images captured by a 360 camera. Some others, like the rain dataset, have been captured by a smartphone and are all unpaired images. [@Mohzick](https://github.com/Mohzick) mostly took care of the second part which is developing and training the neural network.
+This project is broadly divided into three parts: in order to train the neural network, I created a dataset composed of various kind of images. Some of them are pairs of day and night images captured by a 360 camera. Some others, like the rain dataset, have been captured by a smartphone and are all unpaired images. The seccond part involves understanding and implementing the Pix2pix and CycleGAN algorithms and creating a model using the dataset. Finally, a real-time application using a PC webcam can be created.
 
 ## The application
 
@@ -47,7 +47,7 @@ With the help of a programmable cleaner robot and an omnidirectional camera, we 
 
 ## Future work
 
-standalone windows app
+A standalone Windows app could be developed in order to use it with a Hololens type of device. Other datasets can be created to make the application useable in various kinds of environments. 
 
 ## Credits
 
