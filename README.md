@@ -5,53 +5,51 @@ This project was developped during a 3-months long internship at CARE Lab (Nara 
 
 ## Introduction and motivations
 
-This project tackles the basics of machine learning and computer vision. It is mostly a learning experience and reuses the work of Nvidia who developped the main ideas behind the Pix2Pix and CycleGAN machine learning algorithms.
+Nightfall Project originally aims to convert a night video into a day video, using an image generating neural network. Transforming night to day has several applications in automated vehicles (to have a clear image of the night, allowing better visibility), surveillance and even tourism or AR attractions. For example, a future tourist will be able to clear rain from a landscape to take the perfect picture. 
 
-Transforming Rain to Sun has several applications in automated vehicles, surveillance and even tourism/AR attractions.
-Transforming Night to Day also has these applications. Both would eventually benefit from a porting to smartphones and AR glasses.
+This project tackles the basics of machine learning and computer vision. It is mostly a learning experience and reuses the work of Nvidia who developped the main ideas behind the Pix2Pix and CycleGAN machine learning algorithms. 
 
-## How to run
+This project is broadly divided into two parts: in order to train the neural network, I created a dataset composed of various kind of images. Some of them are pairs of day and night images captured by a 360 camera. Some others, like the rain dataset, have been captured by a smartphone and are all unpaired images. [@Mohzick](https://github.com/Mohzick) mostly took care of the second part which is developing and training the neural network.
+
+## The application
+
+The final product of this project is a real-time Python application displaying a webcam feed and the processed output of the night-to-day neural network. A video demo is available at [insert gitHub address here]. It is only able to convert the laboratory’s environment because of the very specific training dataset [@minh-n](https://github.com/minh-n) created. 
+
+## Running the application
 
 ### Prerequisites
 
-The  coversion application can be runned as is on Linux 
-
-standalone windows app
-
-the code needs those libraries
+The conversion application can be runned as is on Linux and needs the following libraries:
 
 ```
 Python 3.6
-Cuda
-
-Dataset processing
-
+CUDA version ?
+PyTorch 0.4
 PIL and OpenCV 
-
 ```
 
+The dataset processing scripts only needs `PIL` & `OpenCV`.
 
+### Shell commands
 
-### Machine learning 
-The Pix2Pix neural network can be trained 
+```
+python test.py --args @Mohzick pls do this
+```
+
+## Machine learning 
+
+The Pix2Pix neural network can be trained using a dataset formatted using the available scripts. The dataset needs to be separated into two folders of paired images (Day and Night or any other transformation). The images' size needs to be 350x350. A good number of pairs would be around 1000 (we could only use the 600 available for the final application).  
 
 ## Technologies used
 
+With the help of a programmable cleaner robot and an omnidirectional camera, we have captured many pairs of the corresponding night and day-time images from the same viewpoint.  [![A video of the robot in action](https://img.youtube.com/vi/vov4H4KSB8A/0.jpg)](https://www.youtube.com/watch?v=vov4H4KSB8A)
 
-As a part of the fourth year of our Computer Science engineering courses at Polytech Paris-Sud, we have chosen to conduct 
 
-With the help of a programmable cleaner robot and an omnidirectional camera, we will capture many pairs of the corresponding night and day-time images from the same viewpoint. 
+## Future work
 
-By tracing along the exact same path on the floor during the day and at night, we can capture many image pairs. We will need hundreds or thousands of such images.
-
-We will convert such omnidirectional images into normal perspective images whose viewing angle is that of the RGB camera we will use for the real-time application. 
-
-Then we will train the neural network, then develop a real-time image conversion system, and run the program with a wearable RGB camera.
-
+standalone windows app
 
 ## Credits
 
-__pix2pix. 
-pytorch. 
-care lab  __
+We would like to thank the team behind Pix2Pix, CycleGAN, PyTorch and CUDA, as well as the teachers and students of CARE Lab. Without them, this whole project would not have been possible. 
 
