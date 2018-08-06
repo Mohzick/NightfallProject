@@ -96,7 +96,7 @@ if (args.type == "video"):
 		os.makedirs(tempOutput)
 
 	print("\n------------\nThank you for choosing our extracting and cropping program.\n------------\n")
-	print("\n------------\nBeginning work on video {0}: extracting 1/2 frames and storing them into {1}.\n------------\n".format(video, outvideo))
+	print("\n------------\nBeginning work on video {0}: extracting video frames and storing them into {1}.\n------------\n".format(video, outvideo))
 	frame.extractImages(video, tempOutput)
 	print("\n------------\nWork on video {0} is complete!\n------------\n".format(video))
 	print("\n------------\nSuccessfully extracted images from videos in {0}.".format(video))
