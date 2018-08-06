@@ -95,6 +95,9 @@ if (args.type == "video"):
 	if not os.path.isdir(tempOutput):
 		os.makedirs(tempOutput)
 
+	if not os.path.isdir(realoutvideo):
+		os.makedirs(realoutvideo)
+
 	print("\n------------\nThank you for choosing our extracting and cropping program.\n------------\n")
 	print("\n------------\nBeginning work on video {0}: extracting 1/2 frames and storing them into {1}.\n------------\n".format(video, outvideo))
 	frame.extractImages(video, tempOutput)
@@ -123,6 +126,7 @@ if (args.type == "video"):
 		data = fake_Day.detach().data[0]
 		string1 = outvideo + "/test/image"
 		string12 = "%d" % iteration
+		string12 = string12.zfill(6)
 		stringExtension = ".jpg"
 		string14 = string1 + string12 + stringExtension
 		saveImage(data.cpu(), string14)

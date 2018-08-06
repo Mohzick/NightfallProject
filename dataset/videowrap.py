@@ -19,7 +19,7 @@ def folderToVideo(inFolder, outVideo):
 
 	# Define the codec and create VideoWriter object
 	fourcc = cv2.VideoWriter_fourcc(*'mp4v') # Be sure to use lower case
-	out = cv2.VideoWriter(outVideo, fourcc, 15.0, (height, width))
+	out = cv2.VideoWriter(outVideo, fourcc, 60.0, (height, width))
 
 
 

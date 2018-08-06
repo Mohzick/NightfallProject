@@ -40,12 +40,11 @@ def extractImages(inFile, outFolder):
       counter += 1
       completionCounter += 1
       if success:
-        if counter%2 == 0:
-          imgName = str(counter).zfill(6)
 
-          cv2.imwrite( outFolder + "/" + imgName + ".jpg", image)     # save frame as JPEG file
-          percentage = int((completionCounter/length)*100)
-          print("Progress = {0} %...".format(percentage), end='\r')
+        imgName = str(counter).zfill(6)
+        cv2.imwrite( outFolder + "/" + imgName + ".jpg", image)     # save frame as JPEG file
+        percentage = int((completionCounter/length)*100)
+        print("Progress = {0} %...".format(percentage), end='\r')
 
 '''
 if __name__=="__main__":

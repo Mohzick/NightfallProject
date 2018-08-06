@@ -71,7 +71,7 @@ class createDatasetTest(data.Dataset):
     def __init__(self, image_folder):
         super(createDatasetTest, self).__init__()
         self.night_path = image_folder
-        self.images_name = [n for n in listdir(self.night_path) if isImage(n)]
+        self.images_name = [n for n in sorted(listdir(self.night_path)) if isImage(n)]
 
         self.transformation = transforms.Compose([transforms.ToTensor(), 
                                                  transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))]) 
