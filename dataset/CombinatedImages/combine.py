@@ -2,7 +2,6 @@
 https://github.com/phillipi/pix2pix/blob/master/scripts/combine_A_and_B.py
 '''
 
-
 import os
 import numpy as np
 import argparse
@@ -20,17 +19,16 @@ for arg in vars(args):
     print('[%s] = ' % arg,  getattr(args, arg))
 
 
-img_fold_A = '.\\DN1\\Day'
-img_fold_B = '.\\DN1\\Night'
+#img_fold_A = '.\\DN1\\Day'
+#img_fold_B = '.\\DN1\\Night'
+
+img_fold_A = args.fold_A
+img_fold_B = args.fold_B
 
 print("Path B = ")
 print(img_fold_B)
 
-
-print("Path B = ")
-print(img_fold_B)
-
-img_list = os.listdir('.\\DN1\\Day')
+img_list = os.listdir(img_fold_A)
 
 if args.use_AB:
     img_list = [img_path for img_path in img_list if '_A.' in img_path]
@@ -45,8 +43,6 @@ if not os.path.isdir(img_fold_AB):
     os.makedirs(img_fold_AB)
 
 #print('split = %s, number of images = %d' % (sp, num_imgs))
-
-
 
 for n in range(num_imgs):
     name_A = img_list[n]

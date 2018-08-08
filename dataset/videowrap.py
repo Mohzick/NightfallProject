@@ -17,20 +17,30 @@ def folderToVideo(inFolder, outVideo):
 	cv2.imshow('video',frame)
 	height, width, channels = frame.shape
 
+	print(height, width)
+
 	# Define the codec and create VideoWriter object
 	fourcc = cv2.VideoWriter_fourcc(*'mp4v') # Be sure to use lower case
+
 	out = cv2.VideoWriter(outVideo, fourcc, 60.0, (height, width))
+
+	#fourcc = cv2.VideoWriter_fourcc('F','M','P','4')
+	out = cv2.VideoWriter(outVideo, fourcc, 30.0, (width, height))
+
 
 
 
 	for image in images:
 
 	    image_path = os.path.join(inFolder, image)
+
+	    print(image_path)
+
 	    frame = cv2.imread(image_path)
 
 	    out.write(frame) # Write out frame to video
 
-	    cv2.imshow('video',frame)
+	    #cv2.imshow('video',frame)
 
 	# Release everything if job is finished
 	out.release()

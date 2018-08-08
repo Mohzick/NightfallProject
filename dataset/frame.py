@@ -32,8 +32,8 @@ def extractImages(inFile, outFolder):
 
     vidcap = cv2.VideoCapture(inFile)
     length = int(vidcap.get(cv2.CAP_PROP_FRAME_COUNT))
-    success = True #why
-
+    success = True 
+    
     while success:
 
       success,image = vidcap.read()
